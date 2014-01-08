@@ -57,17 +57,17 @@ writing Ruby code.
 
     ```Ruby
     # bad
-    puts 'foobar'; # superfluous semicolon
+    puts "foobar"; # superfluous semicolon
 
-    puts 'foo'; puts 'bar' # two expression on the same line
+    puts "foo"; puts "bar" # two expression on the same line
 
     # good
-    puts 'foobar'
+    puts "foobar"
 
-    puts 'foo'
-    puts 'bar'
+    puts "foo"
+    puts "bar"
 
-    puts 'foo', 'bar' # this applies to puts in particular
+    puts "foo", "bar" # this applies to puts in particular
     ```
 
 * Prefer a single-line format for class definitions with no body.
@@ -123,7 +123,7 @@ writing Ruby code.
     ```Ruby
     sum = 1 + 2
     a, b = 1, 2
-    1 > 2 ? true : false; puts 'Hi'
+    1 > 2 ? true : false; puts "Hi"
     [1, 2, 3].each { |e| puts e }
     ```
 
@@ -191,10 +191,10 @@ writing Ruby code.
     ```Ruby
     # bad
     case
-      when song.name == 'Misty'
-        puts 'Not again!'
+      when song.name == "Misty"
+        puts "Not again!"
       when song.duration > 120
-        puts 'Too long!'
+        puts "Too long!"
       when Time.now.hour > 21
         puts "It's too late"
       else
@@ -203,10 +203,10 @@ writing Ruby code.
 
     # good
     case
-    when song.name == 'Misty'
-      puts 'Not again!'
+    when song.name == "Misty"
+      puts "Not again!"
     when song.duration > 120
-      puts 'Too long!'
+      puts "Too long!"
     when Time.now.hour > 21
       puts "It's too late"
     else
@@ -219,12 +219,12 @@ writing Ruby code.
     ```Ruby
     # bad - pretty convoluted
     kind = case year
-    when 1850..1889 then 'Blues'
-    when 1890..1909 then 'Ragtime'
-    when 1910..1929 then 'New Orleans Jazz'
-    when 1930..1939 then 'Swing'
-    when 1940..1950 then 'Bebop'
-    else 'Jazz'
+    when 1850..1889 then "Blues"
+    when 1890..1909 then "Ragtime"
+    when 1910..1929 then "New Orleans Jazz"
+    when 1930..1939 then "Swing"
+    when 1940..1950 then "Bebop"
+    else "Jazz"
     end
 
     result = if some_cond
@@ -235,11 +235,11 @@ writing Ruby code.
 
     # good - it's apparent what's going on
     kind = case year
-           when 1850..1889 then 'Blues'
-           when 1890..1909 then 'Ragtime'
-           when 1910..1929 then 'New Orleans Jazz'
-           when 1930..1939 then 'Swing'
-           when 1940..1950 then 'Bebop'
+           when 1850..1889 then "Blues"
+           when 1890..1909 then "Ragtime"
+           when 1910..1929 then "New Orleans Jazz"
+           when 1930..1939 then "Swing"
+           when 1940..1950 then "Bebop"
            else 'Jazz'
            end
 
@@ -252,11 +252,11 @@ writing Ruby code.
     # good (a bit more width efficient)
     kind =
       case year
-      when 1850..1889 then 'Blues'
-      when 1890..1909 then 'Ragtime'
-      when 1910..1929 then 'New Orleans Jazz'
-      when 1930..1939 then 'Swing'
-      when 1940..1950 then 'Bebop'
+      when 1850..1889 then "Blues"
+      when 1890..1909 then "Ragtime"
+      when 1910..1929 then "New Orleans Jazz"
+      when 1930..1939 then "Swing"
+      when 1940..1950 then "Bebop"
       else 'Jazz'
       end
 
