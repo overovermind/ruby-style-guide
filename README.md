@@ -576,7 +576,7 @@ Never use `::` for regular method invocation.
 
     ```Ruby
     # bad
-    x = 'test'
+    x = "test"
     # obscure nil check
     if !!x
       # body omitted
@@ -587,7 +587,7 @@ Never use `::` for regular method invocation.
     !!x # => false
 
     # good
-    x = 'test'
+    x = "test"
     if !x.nil?
       # body omitted
     end
@@ -659,16 +659,16 @@ Never use `::` for regular method invocation.
     ```Ruby
     # bad
     unless success?
-      puts 'failure'
+      puts "failure"
     else
-      puts 'success'
+      puts "success"
     end
 
     # good
     if success?
-      puts 'success'
+      puts "success"
     else
-      puts 'failure'
+      puts "failure"
     end
     ```
 
@@ -780,10 +780,10 @@ Never use `::` for regular method invocation.
 
     ```Ruby
     # bad
-    user.set({ :name => 'John', :age => 45, :permissions => { :read => true } })
+    user.set({ :name => "John", :age => 45, :permissions => { :read => true } })
 
     # good
-    user.set(:name => 'John', :age => 45, :permissions => { :read => true })
+    user.set(:name => "John", :age => 45, :permissions => { :read => true })
     ```
 
 * Omit both the outer braces and parentheses for methods that are
@@ -1173,11 +1173,11 @@ setting the warn level to 0 via `-W0`).
     ```ruby
     # bad
 
-    END { puts 'Goodbye!' }
+    END { puts "Goodbye!" }
 
     # good
 
-    at_exit { puts 'Goodbye!' }
+    at_exit { puts "Goodbye!" }
     ```
 
 * Avoid the use of flip-flops.
@@ -2108,7 +2108,7 @@ this rule only to arrays with two or more elements.
 * Prefer the use of the block instead of the default value in `Hash#fetch`.
 
    ```Ruby
-   batman = { name: "Bruce Wayne" }
+   batman = { :name => "Bruce Wayne" }
 
    # bad - if we use the default value, we eager evaluate it
    # so it can slow the program down if done multiple times
