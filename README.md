@@ -1538,6 +1538,9 @@ at all.
       # followed by other macros (if any)
       validates :name
 
+      # scopes
+      scope :latest, order("deals.created_at DESC")
+
       # public class methods are next in line
       def self.some_method
       end
@@ -1971,12 +1974,12 @@ in *Ruby* now, not in *Python*.
     begin
       n / d
     rescue ZeroDivisionError
-      puts 'Cannot divide by 0!'
+      puts "Cannot divide by 0!"
     end
 
     # good
     if d.zero?
-      puts 'Cannot divide by 0!'
+      puts "Cannot divide by 0!"
     else
       n / d
     end
@@ -2068,28 +2071,27 @@ pass parameters to their constructors, that is).
     hash = {}
     ```
 
-* Prefer `%w` to the literal array syntax when you need an array of
-words(non-empty strings without spaces and special characters in them).
-Apply this rule only to arrays with two or more elements.
+* Prefer the literal array syntax to `%w` when you need an array of
+words.
 
     ```Ruby
     # bad
-    STATES = ['draft', 'open', 'closed']
+    STATES = %w(draft open closed)
 
     # good
-    STATES = %w(draft open closed)
+    STATES = ["draft", "open", "closed"]
     ```
 
-* Prefer `%i` to the literal array syntax when you need an array of
-symbols(and you don't need to maintain Ruby 1.9 compatibility). Apply
+* Prefer the literal array syntax to `%i` when you need an array of
+symbols (this maintains Ruby 1.9 compatibility). Apply
 this rule only to arrays with two or more elements.
 
     ```Ruby
     # bad
-    STATES = [:draft, :open, :closed]
+    STATES = %i(draft open closed)
 
     # good
-    STATES = %i(draft open closed)
+    STATES = [:draft, :open, :closed]
     ```
 
 * Avoid the creation of huge gaps in arrays.
@@ -2109,10 +2111,10 @@ this rule only to arrays with two or more elements.
 
     ```Ruby
     # bad
-    hash = { 'one' => 1, 'two' => 2, 'three' => 3 }
+    hash = { "one" => 1, "two" => 2, "three" => 3 }
 
     # good
-    hash = { one: 1, two: 2, three: 3 }
+    hash = { :one => 1, :two => 2, :three => 3 }
     ```
 
 * Avoid the use of mutable objects as hash keys.
@@ -2120,10 +2122,10 @@ this rule only to arrays with two or more elements.
 
     ```Ruby
     # bad
-    hash = { :one => 1, :two => 2, :three => 3 }
+    hash = { one: 1, two: 2, three: 3 }
 
     # good
-    hash = { one: 1, two: 2, three: 3 }
+    hash = { :one => 1, :two => 2, :three => 3 }
     ```
 
 * Use `Hash#key?` instead of `Hash#has_key?` and `Hash#value?` instead
@@ -2187,17 +2189,10 @@ this rule only to arrays with two or more elements.
 
     ```Ruby
     # bad
-    email_with_name = user.name + ' <' + user.email + '>'
+    email_with_name = user.name + " <" + user.email + ">"
 
     # good
     email_with_name = "#{user.name} <#{user.email}>"
-    ```
-
-* Consider padding string interpolation code with space. It more clearly sets the
-  code apart from the string.
-
-    ```Ruby
-    "#{ user.last_name }, #{ user.first_name }"
     ```
 
 * Prefer single-quoted strings when you don't need string interpolation or
@@ -2205,10 +2200,10 @@ this rule only to arrays with two or more elements.
 
     ```Ruby
     # bad
-    name = "Bozhidar"
+    name = 'Bozhidar'
 
     # good
-    name = 'Bozhidar'
+    name = "Bozhidar"
     ```
 
 * Don't use the character literal syntax `?x`. Since Ruby 1.9 it's
@@ -2260,8 +2255,8 @@ this rule only to arrays with two or more elements.
 
     ```Ruby
     # good and also fast
-    html = ''
-    html << '<h1>Page title</h1>'
+    html = ""
+    html << "<h1>Page title</h1>"
 
     paragraphs.each do |paragraph|
       html << "<p>#{paragraph}</p>"
@@ -2273,7 +2268,7 @@ this rule only to arrays with two or more elements.
   employ some margin based on which to trim the excessive whitespace.
 
     ```Ruby
-    code = <<-END.gsub(/^\s+\|/, '')
+    code = <<-END.gsub(/^\s+\|/, "")
       |def test
       |  some_method
       |  other_method
@@ -2546,24 +2541,6 @@ this rule only to arrays with two or more elements.
 * Be consistent. In an ideal world, be consistent with these guidelines.
 * Use common sense.
 
-## Tools
-
-Here's some tools to help you automatically check Ruby code against
-this guide.
-
-### RuboCop
-
-[RuboCop](https://github.com/bbatsov/rubocop) is a Ruby code style
-checker based on this style guide. RuboCop already covers a
-significant portion of the Guide, supports both MRI 1.9 and MRI 2.0
-and has good Emacs integration.
-
-### RubyMine
-
-[RubyMine](http://www.jetbrains.com/ruby/)'s code inspections are
-[partially based](http://confluence.jetbrains.com/display/RUBYDEV/RubyMine+Inspections)
-on this guide.
-
 # Contributing
 
 Nothing written in this guide is set in stone. It's my desire to work
@@ -2573,19 +2550,3 @@ community.
 
 Feel free to open tickets or send pull requests with improvements. Thanks in
 advance for your help!
-
-# License
-
-![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
-This work is licensed under a [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.en_US)
-
-# Spread the Word
-
-A community-driven style guide is of little use to a community that
-doesn't know about its existence. Tweet about the guide, share it with
-your friends and colleagues. Every comment, suggestion or opinion we
-get makes the guide just a little bit better. And we want to have the
-best possible guide, don't we?
-
-Cheers,<br/>
-[Bozhidar](https://twitter.com/bbatsov)
