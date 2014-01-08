@@ -567,12 +567,14 @@ Never use `::` for regular method invocation.
     if
       some_condition
       do_something
+
       do_something_else
     end
 
     # good
     if some_condition
       do_something
+
       do_something_else
     end
     ```
@@ -676,22 +678,22 @@ Never use `::` for regular method invocation.
     document.saved? || document.save!
     ```
 
-* Avoid multi-line `?:` (the ternary operator); use `if/unless` instead.
+* Avoid multi-line `?:` (the ternary operator); use `if` instead.
 
-* Favor modifier `if/unless` usage when you have a single-line
+* Do not use modifier `if/unless` usage when you have a single-line
   body. Another good alternative is the usage of control flow `&&/||`.
 
     ```Ruby
     # bad
+    do_something if some_condition
+
+    # bad
+    some_condition && do_something
+
+    # good
     if some_condition
       do_something
     end
-
-    # good
-    do_something if some_condition
-
-    # another good option
-    some_condition && do_something
     ```
 
 * Favor `unless` over `if` for negative conditions (or control
@@ -699,16 +701,19 @@ Never use `::` for regular method invocation.
 
     ```Ruby
     # bad
-    do_something if !some_condition
+    if !some_condition
+      do_something
+    end
 
     # bad
-    do_something if not some_condition
+    if not some_condition
+      do_something
+    end
 
     # good
-    do_something unless some_condition
-
-    # another good option
-    some_condition || do_something
+    unless some_condition
+      do_something
+    end
     ```
 
 * Never use `unless` with `else`. Rewrite these with the positive case first.
@@ -770,22 +775,26 @@ Never use `::` for regular method invocation.
 
     ```Ruby
     # bad
+    do_something while some_condition
+
+    # good
     while some_condition
       do_something
     end
-
-    # good
-    do_something while some_condition
     ```
 
 * Favor `until` over `while` for negative conditions.
 
     ```Ruby
     # bad
-    do_something while !some_condition
+    while !some_condition
+      do_something
+    end
 
     # good
-    do_something until some_condition
+    until some_condition
+      do_something
+    end
     ```
 
 * Use `Kernel#loop` with break rather than `begin/end/until` or `begin/end/while` for post-loop tests.
@@ -868,7 +877,7 @@ Never use `::` for regular method invocation.
     'test'.upcase
     ```
 
-* Prefer `{...}` over `do...end` for single-line blocks.  Avoid using
+* Prefer `do...end` over `{...}` for single-line blocks. Avoid using
   `{...}` for multi-line blocks (multiline chaining is always
   ugly). Always use `do...end` for "control flow" and "method
   definitions" (e.g. in Rakefiles and certain DSLs).  Avoid `do...end`
@@ -878,12 +887,12 @@ Never use `::` for regular method invocation.
     names = ['Bozhidar', 'Steve', 'Sarah']
 
     # bad
+    names.each { |name| puts name }
+
+    # good
     names.each do |name|
       puts name
     end
-
-    # good
-    names.each { |name| puts name }
 
     # bad
     names.select do |name|
@@ -898,17 +907,17 @@ Never use `::` for regular method invocation.
     ask themselves - is this code really readable and can the blocks' contents be extracted into
     nifty methods?
 
-* Avoid `return` where not required for flow of control.
+* Always use `return`, even when not required for flow of control.
 
     ```Ruby
     # bad
     def some_method(some_arr)
-      return some_arr.size
+      some_arr.size
     end
 
     # good
     def some_method(some_arr)
-      some_arr.size
+      return some_arr.size
     end
     ```
 
