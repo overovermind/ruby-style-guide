@@ -201,36 +201,33 @@ Translations of the guide are available in the following languages:
 
     `{` and `}` deserve a bit of clarification, since they are used
     for block and hash literals, as well as embedded expressions in
-    strings. For hash literals two styles are considered acceptable.
+    strings. For hash literals one style is considered acceptable.
 
     ```Ruby
+    # bad - no space after { and before }
+    {one: 1, two: 2}
+
     # good - space after { and before }
     { one: 1, two: 2 }
-
-    # good - no space after { and before }
-    {one: 1, two: 2}
     ```
 
-    The first variant is slightly more readable (and arguably more
-    popular in the Ruby community in general). The second variant has
-    the advantage of adding visual difference between block and hash
-    literals. Whichever one you pick - apply it consistently.
+    The second variant is slightly more readable (and arguably more
+    popular in the Ruby community in general). This shoud be applied
+    consistently.
 
-    As far as embedded expressions go, there are also two acceptable
-    options:
+    As far as embedded expressions go, there are is one acceptable
+    option:
 
     ```Ruby
+    # bad - arguably more readable
+    "string#{ expr }"
+
     # good - no spaces
     "string#{expr}"
+   ```
 
-    # ok - arguably more readable
-    "string#{ expr }"
-    ```
-
-    The first style is extremely more popular and you're generally
-    advised to stick with it. The second, on the other hand, is
-    (arguably) a bit more readable. As with hashes - pick one style
-    and apply it consistently.
+    The second style is extremely more popular and you're generally
+    advised to stick with it. As with hashes applythe style consistently.
 
 * No spaces after `(`, `[` or before `]`, `)`.
 
@@ -314,7 +311,7 @@ Translations of the guide are available in the following languages:
                calc_something_else
              end
 
-    # good (and a bit more width efficient)
+    # good (a bit more width efficient)
     kind =
       case year
       when 1850..1889 then 'Blues'
@@ -333,7 +330,7 @@ Translations of the guide are available in the following languages:
       end
     ```
 
-* Use empty lines between method definitions and also to break up a method into logical
+* Use empty lines between lines of code to break up a method into logical
   paragraphs internally.
 
     ```Ruby
@@ -403,33 +400,33 @@ Translations of the guide are available in the following languages:
     ```Ruby
     # starting point (line is too long)
     def send_mail(source)
-      Mailer.deliver(to: 'bob@example.com', from: 'us@example.com', subject: 'Important message', body: source.text)
+      Mailer.deliver(:to => 'bob@example.com', :from => 'us@example.com', :subject => 'Important message', :body => source.text)
     end
 
     # bad (double indent)
     def send_mail(source)
       Mailer.deliver(
-          to: 'bob@example.com',
-          from: 'us@example.com',
-          subject: 'Important message',
-          body: source.text)
+          :to => 'bob@example.com',
+          :from => 'us@example.com',
+          :subject => 'Important message',
+          :body => source.text)
     end
 
     # good
     def send_mail(source)
-      Mailer.deliver(to: 'bob@example.com',
-                     from: 'us@example.com',
-                     subject: 'Important message',
-                     body: source.text)
+      Mailer.deliver(:to => 'bob@example.com',
+                     :from => 'us@example.com',
+                     :subject => 'Important message',
+                     :body => source.text)
     end
 
     # good (normal indent)
     def send_mail(source)
       Mailer.deliver(
-        to: 'bob@example.com',
-        from: 'us@example.com',
-        subject: 'Important message',
-        body: source.text
+        :to => 'bob@example.com',
+        :from => 'us@example.com',
+        :subject => 'Important message',
+        :body => source.text
       )
     end
     ```
@@ -442,15 +439,15 @@ Translations of the guide are available in the following languages:
       "Baked beans", "Spam", "Spam", "Spam", "Spam", "Spam"]
 
     # good
+    menu_item =
+      ["Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam",
+       "Baked beans", "Spam", "Spam", "Spam", "Spam", "Spam"]
+
+    # good
     menu_item = [
       "Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam",
       "Baked beans", "Spam", "Spam", "Spam", "Spam", "Spam"
     ]
-
-    # good
-    menu_item =
-      ["Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam",
-       "Baked beans", "Spam", "Spam", "Spam", "Spam", "Spam"]
     ```
 
 * Add underscores to large numeric literals to improve their readability.
