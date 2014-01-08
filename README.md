@@ -153,7 +153,7 @@ writing Ruby code.
     popular in the Ruby community in general). This shoud be applied
     consistently.
 
-    As far as embedded expressions go, there are is one acceptable
+    As far as embedded expressions go, there is one acceptable
     option:
 
     ```Ruby
@@ -164,8 +164,8 @@ writing Ruby code.
     "string#{expr}"
    ```
 
-    The second style is extremely more popular and you're generally
-    advised to stick with it. As with hashes applythe style consistently.
+    The second style is more popular, so you're generally
+    advised to stick with it.
 
 * No spaces after `(`, `[` or before `]`, `)`.
 
@@ -314,8 +314,8 @@ writing Ruby code.
     result = 1 \
              - 2
 
-    long_string = 'First part of the long string' \
-                  ' and second part of the long string'
+    long_string = "First part of the long string" \
+                  " and second part of the long string"
     ```
 
 * When continuing a chained method invocation on another line keep the `.` on the second line.
@@ -338,32 +338,32 @@ writing Ruby code.
     ```Ruby
     # starting point (line is too long)
     def send_mail(source)
-      Mailer.deliver(:to => 'bob@example.com', :from => 'us@example.com', :subject => 'Important message', :body => source.text)
+      Mailer.deliver(:to => "bob@example.com", :from => "us@example.com", :subject => "Important message", :body => source.text)
     end
 
     # bad (double indent)
     def send_mail(source)
       Mailer.deliver(
-          :to => 'bob@example.com',
-          :from => 'us@example.com',
-          :subject => 'Important message',
+          :to => "bob@example.com",
+          :from => "us@example.com",
+          :subject => "Important message",
           :body => source.text)
     end
 
     # good
     def send_mail(source)
-      Mailer.deliver(:to => 'bob@example.com',
-                     :from => 'us@example.com',
-                     :subject => 'Important message',
+      Mailer.deliver(:to => "bob@example.com",
+                     :from => "us@example.com",
+                     :subject => "Important message",
                      :body => source.text)
     end
 
     # good (normal indent)
     def send_mail(source)
       Mailer.deliver(
-        :to => 'bob@example.com',
-        :from => 'us@example.com',
-        :subject => 'Important message',
+        :to => "bob@example.com",
+        :from => "us@example.com",
+        :subject => "Important message",
         :body => source.text
       )
     end
@@ -618,8 +618,8 @@ Never use `::` for regular method invocation.
 
 * Avoid multi-line `?:` (the ternary operator); use `if` instead.
 
-* Do not use modifier `if/unless` usage when you have a single-line
-  body. Another good alternative is the usage of control flow `&&/||`.
+* Never use the `if/unless` modifier when you have a single-line
+  body. Also avoid the control flow `&&/||`.
 
     ```Ruby
     # bad
@@ -765,7 +765,7 @@ Never use `::` for regular method invocation.
       # omitted
     end
 
-    temperance = Person.new('Temperance', 30)
+    temperance = Person.new("Temperance", 30)
     temperance.name
 
     puts temperance.age
@@ -780,10 +780,10 @@ Never use `::` for regular method invocation.
 
     ```Ruby
     # bad
-    user.set({ name: 'John', age: 45, permissions: { read: true } })
+    user.set({ :name => 'John', :age => 45, :permissions => { :read => true } })
 
     # good
-    user.set(name: 'John', age: 45, permissions: { read: true })
+    user.set(:name => 'John', :age => 45, :permissions => { :read => true })
     ```
 
 * Omit both the outer braces and parentheses for methods that are
@@ -792,10 +792,10 @@ Never use `::` for regular method invocation.
     ```Ruby
     class Person < ActiveRecord::Base
       # bad
-      validates(:name, { presence: true, length: { within: 1..10 } })
+      validates(:name, { :presence => true, :length => { :within => 1..10 } })
 
       # good
-      validates :name, presence: true, length: { within: 1..10 }
+      validates :name, :presence => true, :length => { :within => 1..10 }
     end
     ```
 
@@ -806,13 +806,13 @@ Never use `::` for regular method invocation.
     Kernel.exit!()
     2.even?()
     fork()
-    'test'.upcase()
+    "test".upcase()
 
     # good
     Kernel.exit!
     2.even?
     fork
-    'test'.upcase
+    "test".upcase
     ```
 
 * Prefer `do...end` over `{...}` for single-line blocks. Avoid using
@@ -822,7 +822,7 @@ Never use `::` for regular method invocation.
   when chaining.
 
     ```Ruby
-    names = ['Bozhidar', 'Steve', 'Sarah']
+    names = ["Bozhidar", "Steve", "Sarah"]
 
     # bad
     names.each { |name| puts name }
@@ -834,11 +834,11 @@ Never use `::` for regular method invocation.
 
     # bad
     names.select do |name|
-      name.start_with?('S')
+      name.start_with?("S")
     end.map { |name| name.upcase }
 
     # good
-    names.select { |name| name.start_with?('S') }.map { |name| name.upcase }
+    names.select { |name| name.start_with?("S") }.map { |name| name.upcase }
     ```
 
     Some will argue that multiline chaining would look OK with the use of {...}, but they should
@@ -868,7 +868,7 @@ Never use `::` for regular method invocation.
         self.worker.update(self.content, self.options)
         self.status = :in_progress
       end
-      self.status == :verified
+      return self.status == :verified
     end
 
     # good
@@ -877,7 +877,7 @@ Never use `::` for regular method invocation.
         worker.update(content, options)
         self.status = :in_progress
       end
-      status == :verified
+      return status == :verified
     end
     ```
 
@@ -939,7 +939,7 @@ Never use `::` for regular method invocation.
 
     ```Ruby
     # set name to Bozhidar, only if it's nil or false
-    name ||= 'Bozhidar'
+    name ||= "Bozhidar"
     ```
 
 * Don't use `||=` to initialize boolean variables. (Consider what
@@ -979,7 +979,7 @@ would happen if the current value happened to be `false`.)
     $:.unshift File.dirname(__FILE__)
 
     # good
-    require 'English'
+    require "English"
     $LOAD_PATH.unshift File.dirname(__FILE__)
     ```
 
@@ -1074,23 +1074,23 @@ setting the warn level to 0 via `-W0`).
 
     ```Ruby
     # bad
-    '%d %d' % [20, 10]
-    # => '20 10'
+    "%d %d" % [20, 10]
+    # => "20 10"
 
     # good
-    sprintf('%d %d', 20, 10)
-    # => '20 10'
+    sprintf("%d %d", 20, 10)
+    # => "20 10"
 
     # good
-    sprintf('%{first} %{second}', first: 20, second: 10)
-    # => '20 10'
+    sprintf("%{first} %{second}", first: 20, second: 10)
+    # => "20 10"
 
-    format('%d %d', 20, 10)
-    # => '20 10'
+    format("%d %d", 20, 10)
+    # => "20 10"
 
     # good
-    format('%{first} %{second}', first: 20, second: 10)
-    # => '20 10'
+    format("%{first} %{second}", first: 20, second: 10)
+    # => "20 10"
     ```
 
 * Favor the use of `Array#join` over the fairly cryptic `Array#*` with
@@ -1098,12 +1098,12 @@ setting the warn level to 0 via `-W0`).
 
     ```Ruby
     # bad
-    %w(one two three) * ', '
-    # => 'one, two, three'
+    ["one", "two", "three"] * ", "
+    # => "one, two, three"
 
     # good
-    %w(one two three).join(', ')
-    # => 'one, two, three'
+    ["one", "two", "three"].join(", ")
+    # => "one, two, three"
     ```
 
 * Use `[*var]` or `Array()` instead of explicit `Array` check, when dealing with a
@@ -1477,7 +1477,7 @@ at all.
       validates :name
 
       # scopes
-      scope :latest, order("deals.created_at DESC")
+      scope :latest, order("created_at DESC")
 
       # public class methods are next in line
       def self.some_method
@@ -1669,27 +1669,27 @@ to create instances of a particular class.
     # extend superclass
     class Duck < Animal
       def speak
-        puts 'Quack! Quack'
+        puts "Quack! Quack"
       end
     end
 
     # extend superclass
     class Dog < Animal
       def speak
-        puts 'Bau! Bau!'
+        puts "Bau! Bau!"
       end
     end
 
     # good
     class Duck
       def speak
-        puts 'Quack! Quack'
+        puts "Quack! Quack"
       end
     end
 
     class Dog
       def speak
-        puts 'Bau! Bau!'
+        puts "Bau! Bau!"
       end
     end
     ```
@@ -1699,7 +1699,7 @@ in inheritance.
 
     ```Ruby
     class Parent
-      @@class_var = 'parent'
+      @@class_var = "parent"
 
       def self.print_class_var
         puts @@class_var
@@ -1707,7 +1707,7 @@ in inheritance.
     end
 
     class Child < Parent
-      @@class_var = 'child'
+      @@class_var = "child"
     end
 
     Parent.print_class_var # => will print "child"
@@ -1782,9 +1782,9 @@ in *Ruby* now, not in *Python*.
 
     ```Ruby
     begin
-      fail 'Oops'
+      fail "Oops"
     rescue => error
-      raise if error.message != 'Oops'
+      raise if error.message != "Oops"
     end
     ```
 
@@ -1792,10 +1792,10 @@ in *Ruby* now, not in *Python*.
 
     ```Ruby
     # bad
-    fail RuntimeError, 'message'
+    fail RuntimeError, "message"
 
     # good - signals a RuntimeError by default
-    fail 'message'
+    fail "message"
     ```
 
 * Prefer supplying an exception class and a message as two separate
@@ -1803,12 +1803,12 @@ in *Ruby* now, not in *Python*.
 
     ```Ruby
     # bad
-    fail SomeException.new('message')
-    # Note that there is no way to do `fail SomeException.new('message'), backtrace`.
+    fail SomeException.new("message")
+    # Note that there is no way to do `fail SomeException.new("message"), backtrace`.
 
     # good
-    fail SomeException, 'message'
-    # Consistent with `fail SomeException, 'message', backtrace`.
+    fail SomeException, "message"
+    # Consistent with `fail SomeException, "message", backtrace`.
     ```
 
 * Never return from an `ensure` block. If you explicitly return from a
@@ -1822,7 +1822,7 @@ in *Ruby* now, not in *Python*.
       begin
         fail
       ensure
-        return 'very bad idea'
+        return "very bad idea"
       end
     end
     ```
@@ -1981,7 +1981,7 @@ in *Ruby* now, not in *Python*.
 block.
 
     ```Ruby
-    f = File.open('testfile')
+    f = File.open("testfile")
     begin
       # .. process
     rescue
@@ -2084,7 +2084,7 @@ this rule only to arrays with two or more elements.
 * Use `Hash#fetch` when dealing with hash keys that should be present.
 
     ```Ruby
-    heroes = { batman: 'Bruce Wayne', superman: 'Clark Kent' }
+    heroes = { :batman => "Bruce Wayne", :superman => "Clark Kent" }
     # bad - if we make a mistake we might not spot it right away
     heroes[:batman] # => "Bruce Wayne"
     heroes[:supermann] # => nil
@@ -2096,7 +2096,7 @@ this rule only to arrays with two or more elements.
 * Introduce default values for hash keys via `Hash#fetch` as opposed to using custom logic.
 
    ```Ruby
-   batman = { name: 'Bruce Wayne', is_evil: false }
+   batman = { :name => "Bruce Wayne", :is_evil => false }
 
    # bad - if we just use || operator with falsy value we won't get the expected result
    batman[:is_evil] || true # => true
@@ -2108,7 +2108,7 @@ this rule only to arrays with two or more elements.
 * Prefer the use of the block instead of the default value in `Hash#fetch`.
 
    ```Ruby
-   batman = { name: 'Bruce Wayne' }
+   batman = { name: "Bruce Wayne" }
 
    # bad - if we use the default value, we eager evaluate it
    # so it can slow the program down if done multiple times
@@ -2153,7 +2153,7 @@ this rule only to arrays with two or more elements.
     char = ?c
 
     # good
-    char = 'c'
+    char = "c"
     ```
 
 * Don't leave out `{}` around instance and global variables being
@@ -2228,7 +2228,7 @@ this rule only to arrays with two or more elements.
     ```Ruby
     match = string[/regexp/]             # get content of matched regexp
     first_group = string[/text(grp)/, 1] # get content of captured group
-    string[/text (grp)/, 1] = 'replace'  # string => 'text replace'
+    string[/text (grp)/, 1] = "replace"  # string => 'text replace'
     ```
 
 * Use non-capturing groups when you don't use captured result of parentheses.
@@ -2330,9 +2330,9 @@ this rule only to arrays with two or more elements.
     question = %q("What did you say?")
 
     # good
-    name = 'Bruce Wayne'
+    name = "Bruce Wayne"
     time = "8 o'clock"
-    question = '"What did you say?"'
+    question = "'What did you say?'"
     ```
 
 * Use `%r` only for regular expressions matching *more than* one '/' character.
