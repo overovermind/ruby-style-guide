@@ -1,6 +1,6 @@
-# Looptec New Media Ruby Style Guide
+# Looptec New Media Ruby Coding Guidelines
 
-This Looptec New Media Ruby style guide recommends best practices for
+This Looptec New Media Ruby coding guidelines recommends best practices for
 writing Ruby code.
 
 ## Table of Contents
